@@ -1,14 +1,34 @@
 package edu.ufp.inf.sd.rmi.project.server;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import edu.ufp.inf.sd.rmi.project.client.ClientManager;
+import edu.ufp.inf.sd.rmi.util.rmisetup.SetupContextRMI;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.RemoteException;
+import java.util.Properties;
+import java.util.function.BiConsumer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Server {
    public static PlayerData[] player = new PlayerData[Const.QTY_PLAYERS];
    public static Coordinate[][] map = new Coordinate[Const.LIN][Const.COL];
+
+   /**
+    * Context for running a RMI Servant on a SMTP_HOST_ADDR
+    */
+   private SetupContextRMI contextRMI;
    
    Server(int portNumber) {
       ServerSocket ss;
@@ -101,6 +121,43 @@ public class Server {
    }
 
    public static void main(String[] args) {
+
       new Server(8383);
    }
+
+   public static String giveToken(String username) {
+
+      String token = new String("");
+
+      try {
+
+         Algorithm algorithm = Algorithm.HMAC256("secret");
+         token = JWT.create().withIssuer(username).sign(algorithm);
+         } catch (JWTCreationException exception) {
+         exception.printStackTrace();
+      }
+      return token;
+   }
+
+   public static boolean verifiedToken(String token, String username) {
+
+      DecodedJWT jwt = null;
+
+      try {
+
+         Algorithm algorithm = Algorithm.HMAC256("secret");
+         JWTVerifier verifier = JWT.require(algorithm).withIssuer(username).build();
+         jwt = verifier.verify(token);
+         System.out.println(jwt.getToken());
+      } catch (JWTVerificationException exception) {
+
+      }
+      assert jwt != null;
+      if (jwt.getToken().equals(token)) {
+
+         return true;
+      }
+      return false;
+   }
+
 }

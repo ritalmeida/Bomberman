@@ -17,6 +17,7 @@ public class Game extends JPanel {
    private int max_players;
 
    public Game(int width, int height) {
+
       setPreferredSize(new Dimension(width, height));
       try {
          System.out.print("Inicializando jogadores...");

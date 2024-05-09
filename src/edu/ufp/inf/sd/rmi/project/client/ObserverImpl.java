@@ -1,8 +1,8 @@
 package edu.ufp.inf.sd.rmi.project.client;
 
-import edu.ufp.inf.sd.rmi._01_helloworld.server.HelloWorldRI;
-import edu.ufp.inf.sd.rmi._05_observer.server.State;
-import edu.ufp.inf.sd.rmi._05_observer.server.SubjectRI;
+import edu.ufp.inf.sd.rmi.project.server.Game;
+import edu.ufp.inf.sd.rmi.project.server.State;
+import edu.ufp.inf.sd.rmi.project.server.SubjectRI;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -11,46 +11,58 @@ import java.util.logging.Logger;
 
 public class ObserverImpl extends UnicastRemoteObject implements ObserverRI {
 
-    private String username;
+    private String id;
     private SubjectRI subjectRI;
-    private ObserverGuiClient observerGuiClient;
+    private State lastObserverState;
+    private Game g;
 
-    public ObserverImpl() throws RemoteException {
+    public ObserverImpl(String username) throws RemoteException {
 
         super();
+        this.id = username;
     }
 
-    public ObserverImpl(String username, ObserverGuiClient observerGuiClient, SubjectRI subjectRI) throws RemoteException {
+    @Override
+    public String getId() {
+        return id;
+    }
 
-        super();
-        this.username = username;
-        this.observerGuiClient = observerGuiClient;
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public SubjectRI getSubjectRI() {
+        return subjectRI;
+    }
+
+    @Override
+    public void setSubjectRI(SubjectRI subjectRI) {
         this.subjectRI = subjectRI;
-        this.subjectRI.attach(this);
+    }
+
+    @Override
+    public State getLastObserverState() {
+        return lastObserverState;
+    }
+
+    @Override
+    public void setLastObserverState(State lastObserverState) {
+        this.lastObserverState = lastObserverState;
     }
 
     @Override
     public void update() throws RemoteException {
 
-        //observerState = subjectRI.getState();
         try {
-            if (this.subjectRI.getState().getId().compareTo(this.username) == 0) {      // current user message goes to the right
-                this.observerGuiClient.doc.insertString(this.observerGuiClient.doc.getLength(), this.subjectRI.getState().toString() + "\n", this.observerGuiClient.rightAlign);
+            lastObserverState = subjectRI.getState();
+            if (lastObserverState.getInfo().compareTo("START") == 0) {
+
+                System.out.println("STARTING GAME...");
+
             }
-            else {
-                this.observerGuiClient.doc.insertString(this.observerGuiClient.doc.getLength(), this.subjectRI.getState().toString() + "\n", this.observerGuiClient.leftAlign);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-    }
 
-    public SubjectRI getSubjectRI() {
-        return this.subjectRI;
-    }
-
-    public  State getObserverState() throws RemoteException {
-
-        return this.subjectRI.getState();
     }
 }

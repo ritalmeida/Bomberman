@@ -1,4 +1,4 @@
-package edu.ufp.inf.sd.rmi._05_observer.server;
+package edu.ufp.inf.sd.rmi.project.server;
 
 import edu.ufp.inf.sd.rmi._05_observer.client.ObserverRI;
 
@@ -7,8 +7,12 @@ import java.rmi.RemoteException;
 
 
 public interface SubjectRI extends Remote {
-    public State getState() throws RemoteException;
-    public void setState(State state) throws RemoteException;
-    public void attach(ObserverRI observerRI) throws RemoteException;
-    public void detach(ObserverRI observerRI) throws RemoteException;
+
+    State getState();
+
+    void setState(State state) throws RemoteException;
+
+    void attach(ObserverRI observerRI);
+
+    void detach(ObserverRI observerRI);
 }

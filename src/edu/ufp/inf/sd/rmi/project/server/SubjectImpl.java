@@ -1,4 +1,4 @@
-package edu.ufp.inf.sd.rmi._05_observer.server;
+package edu.ufp.inf.sd.rmi.project.server;
 
 import edu.ufp.inf.sd.rmi._01_helloworld.server.HelloWorldRI;
 import edu.ufp.inf.sd.rmi._05_observer.client.ObserverRI;
@@ -6,8 +6,6 @@ import edu.ufp.inf.sd.rmi._05_observer.client.ObserverRI;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SubjectImpl extends UnicastRemoteObject implements SubjectRI {
 

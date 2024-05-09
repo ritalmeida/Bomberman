@@ -6,7 +6,7 @@
  * @author Rui Moreira
  * @version 2.0
  */
-package edu.ufp.inf.sd.rmi._05_observer.server;
+package edu.ufp.inf.sd.rmi.project.server;
 
 import java.io.Serializable;
 
