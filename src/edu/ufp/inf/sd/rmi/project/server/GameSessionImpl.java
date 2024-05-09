@@ -1,5 +1,7 @@
 package edu.ufp.inf.sd.rmi.project.server;
 
+import edu.ufp.inf.sd.rmi.project.client.ObserverRI;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -74,6 +76,24 @@ public class GameSessionImpl extends UnicastRemoteObject implements GameSessionR
         return this.gameFactory.getDatabase().printOnGames();
     }
 
+    public Game newGame(int max_players, String token, ObserverRI observerRI) throws RemoteException {
+
+        if (Server.verifiedToken(token, this.username)) {
+
+            SubjectRI subjectRI = new SubjectImpl();
+            Game game = gameFactory.getDatabase().insert(max_players, subjectRI);
+
+            subjectRI.setGame(game);
+            game.getSubjectRI().attach(observerRI);
+
+            System.out.println("Jogo criado com sucesso!");
+            return game;
+        } else {
+
+            System.out.println("Token errado!");
+            return null;
+        }
+    }
 
 
 

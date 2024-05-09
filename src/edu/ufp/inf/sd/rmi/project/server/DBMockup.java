@@ -143,4 +143,18 @@ public class DBMockup {
         return null;
     }
 
+    public Game insert(int max_players, SubjectRI subjectRI) throws RemoteException {
+
+        Game game = new Game(max_players, subjectRI);
+        if (games.size() < 1) {
+
+            game.setId(1);
+        } else {
+
+            game.setId(games.size() + 1);
+        }
+        games.add(game);
+        return game;
+    }
+
 }

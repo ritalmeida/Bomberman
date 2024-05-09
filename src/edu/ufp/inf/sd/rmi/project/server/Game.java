@@ -11,10 +11,17 @@ import javax.swing.JPanel;
 public class Game extends JPanel {
    private static final long serialVersionUID = 1L;
    static Player you, enemy1, enemy2, enemy3;
-
    private int id;
    private int num_players;
    private int max_players;
+   private SubjectRI subjectRI;
+
+   public Game(int max_players, SubjectRI subjectRI) {
+
+      this.max_players = max_players;
+      this.num_players = 1;
+      this.subjectRI = subjectRI;
+   }
 
    public Game(int width, int height) {
 
@@ -83,5 +90,13 @@ public class Game extends JPanel {
 
    public void setMax_players(int max_players) {
       this.max_players = max_players;
+   }
+
+   public SubjectRI getSubjectRI() {
+      return subjectRI;
+   }
+
+   public void setSubjectRI(SubjectRI subjectRI) {
+      this.subjectRI = subjectRI;
    }
 }

@@ -55,14 +55,7 @@ public class ObserverImpl extends UnicastRemoteObject implements ObserverRI {
     @Override
     public void update() throws RemoteException {
 
-        try {
-            lastObserverState = subjectRI.getState();
-            if (lastObserverState.getInfo().compareTo("START") == 0) {
-
-                System.out.println("STARTING GAME...");
-
-            }
-        }
+        //TODO
 
     }
 }

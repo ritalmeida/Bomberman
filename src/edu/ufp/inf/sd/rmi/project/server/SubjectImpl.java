@@ -1,7 +1,7 @@
 package edu.ufp.inf.sd.rmi.project.server;
 
-import edu.ufp.inf.sd.rmi._01_helloworld.server.HelloWorldRI;
-import edu.ufp.inf.sd.rmi._05_observer.client.ObserverRI;
+
+import edu.ufp.inf.sd.rmi.project.client.ObserverRI;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -12,6 +12,22 @@ public class SubjectImpl extends UnicastRemoteObject implements SubjectRI {
     private State state;
 
     private ArrayList<ObserverRI> observers = new ArrayList<>();
+
+    private int id;
+
+    private Game game;
+    private ObserverRI observerRI;
+
+    @Override
+    public Game getGame() {
+
+        return game;
+    }
+
+    @Override
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public SubjectImpl() throws RemoteException {
 
