@@ -32,7 +32,7 @@ public class SetupContextRMI {
      * @param registryHostIP
      * @param registryHostPort
      * @param serviceNames
-     * @throws java.rmi.RemoteException
+     * @throws RemoteException
      */
     public SetupContextRMI(Class subsystemClass, String registryHostIP, String registryHostPort, String serviceNames[]) throws RemoteException {
         this.logger = Logger.getLogger(subsystemClass.getName());
@@ -124,7 +124,7 @@ public class SetupContextRMI {
      * @param registryHostIP
      * @param registryHostPort
      * @return Registry
-     * @throws java.rmi.RemoteException
+     * @throws RemoteException
      */
     private void setupRegistryContext(String registryHostIP, String registryHostPort) throws RemoteException {
 

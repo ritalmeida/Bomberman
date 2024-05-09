@@ -1,5 +1,7 @@
 package edu.ufp.inf.sd.rmi.project.server;
 
+import edu.ufp.inf.sd.rmi.project.client.Client;
+
 import java.awt.Graphics;
 import javax.swing.JPanel;
 

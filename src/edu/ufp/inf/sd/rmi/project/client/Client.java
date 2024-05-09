@@ -23,8 +23,8 @@ public class Client {
    final static int rateStatusUpdate = 115;
    public static Coordinate[][] map = new Coordinate[Const.LIN][Const.COL];
 
-   static Coordinate spawn[] = new Coordinate[Const.QTY_PLAYERS];
-   static boolean alive[] = new boolean[Const.QTY_PLAYERS];
+   public static Coordinate[] spawn = new Coordinate[Const.QTY_PLAYERS];
+   public static boolean[] alive = new boolean[Const.QTY_PLAYERS];
 
    Client(String host, int porta) {
       try {
@@ -70,20 +70,3 @@ public class Client {
    }
 }
 
-class Window extends JFrame {
-   private static final long serialVersionUID = 1L;
-
-   Window() {
-      Sprite.loadImages();
-      Sprite.setMaxLoopStatus();
-      
-      add(new Game(Const.COL*Const.SIZE_SPRITE_MAP, Const.LIN*Const.SIZE_SPRITE_MAP));
-      setTitle("bomberman");
-      pack();
-      setVisible(true);
-      setLocationRelativeTo(null);
-      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
-      //addKeyListener(new Sender());
-   }
-}
